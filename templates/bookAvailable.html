@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Books Available
+{% endblock %}
+
+{% block main %}
+    <h3>Add Books</h3>
+    <fieldset>
+        <form action="{{ url_for('bookAvailable')}}" class="form-inline" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="book_name" placeholder="Book Name" type="text"/>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="author" placeholder="Author" type="text"/>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="publication" placeholder="Publication" type="text"/>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="subject" placeholder="Subject" type="text"/>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="no_of_copies" placeholder="Number Of Copies" type="text"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Add Book</button>
+            </div>
+        </form>
+
+    </fieldset>
+    <h3>Books Available</h3>
+    <table class="table table-bordered">
+        <tr>
+            <th>Book ID</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Publication</th>
+            <th>Subject</th>
+            <th>Number Of Copies</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+        <tr>
+            <td>{{ book['book_id'] }}</td>
+            <td>{{ book['book_name'] }}</td>
+            <td>{{ book['author'] }}</td>
+            <td>{{ book['publication'] }}</td>
+            <td>{{ book['subject'] }}</td>
+            <td>{{ book['no_of_copies'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

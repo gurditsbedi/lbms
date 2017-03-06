@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Books Issued
+{% endblock %}
+
+{% block main %}
+    <h3>Issue Book</h3>
+    <fieldset>
+        <form action="{{ url_for('bookIssues')}}" class="form-inline" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="book_id" placeholder="Book ID" type="text"/>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="member_id" placeholder="Member ID" type="text"/>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="issue_date" placeholder="Issue Date" type="text"/>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="return_date" placeholder="Return Date" type="text"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Issue Book</button>
+            </div>
+        </form>
+
+    </fieldset>
+    <h3>Books Issued</h3>
+    <table class="table table-bordered">
+        <tr>
+            <th>Book ID</th>
+            <th>Book Name</th>
+            <th>Member ID</th>
+            <th>Member Name</th>
+            <th>Issue Date</th>
+            <th>Return Date</th>
+        </tr>
+        {% for issue in issues %}
+        <tr>
+            <td>{{ issue['book_id'] }}</td>
+            <td>{{ issue['book_name'] }}</td>
+            <td>{{ issue['member_id'] }}</td>
+            <td>{{ issue['member_name'] }}</td>
+            <td>{{ issue['issue_date'] }}</td>
+            <td>{{ issue['return_date'] }}</td>
+        </tr>
+        </tr>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
