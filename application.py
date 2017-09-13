@@ -2,14 +2,13 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 from flask_session import Session
 from sqllibrary import SQL
-from passlib.apps import custom_app_context as pwd_context
 from tempfile import gettempdir
-import random
 
 
 app = Flask(__name__)
 
-db = SQL("sqlite:///libmngsys.db")
+db_url = "sqlite:///libmngsys.db"
+db = SQL(db_url)
 
 # configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = gettempdir()
@@ -24,6 +23,7 @@ def index():
         return redirect(url_for("bookIssues"))
     return redirect(url_for("login"))
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == 'POST':
@@ -34,7 +34,7 @@ def register():
 
         # ensure username does not exists in the database
         rows = db.execute("SELECT username FROM librarians_table")
-        listOfUsernames = [ d['username'] for d in rows]
+        listOfUsernames = [d['username'] for d in rows]
         if request.form.get("username") in listOfUsernames:
             return render_template("apology.html", failMessage="username already exists")
 
@@ -51,11 +51,10 @@ def register():
             return render_template("apology.html", failMessage="passwords don't match")
 
         rows = db.execute("INSERT INTO librarians_table (username, hash) VALUES (:username, :hashh)",
-                    username=request.form.get("username"),
-                    hashh=str(request.form.get("password")))
-                    # hashh=pwd_context.hash(str(request.form.get("password"))))
+                          username=request.form.get("username"),
+                          hashh=str(request.form.get("password")))
 
-        #login
+        # login
         session["user_id"] = rows
 
         return redirect(url_for("bookIssues"))
@@ -109,10 +108,10 @@ def member():
             return render_template("apology.html", failMessage="Must Provide Member Name.")
 
         rows = db.execute("INSERT INTO member_table (member_name, branch, year_of_join) "
-                            "VALUES (:mname, :branch, :yrj)",
-                        mname=request.form.get("member_name"),
-                        branch=request.form.get("branch"),
-                        yrj=request.form.get("year_of_join"))
+                          "VALUES (:mname, :branch, :yrj)",
+                          mname=request.form.get("member_name"),
+                          branch=request.form.get("branch"),
+                          yrj=request.form.get("year_of_join"))
 
         rows = db.execute("SELECT * FROM member_table")
         return render_template("member.html", members=rows)
@@ -133,19 +132,19 @@ def bookAvailable():
             return render_template("apology.html", failMessage="Must Provide Book Name.")
 
         db.execute("INSERT INTO book_table (book_name, author, publication, subject, no_of_copies) "
-                            "VALUES (:bname, :author, :pub, :sub, :noc)",
-                    bname=request.form.get("book_name"),
-                    author=request.form.get("author"),
-                    pub=request.form.get("publication"),
-                    sub=request.form.get("subject"),
-                    noc=request.form.get("no_of_copies"))
+                   "VALUES (:bname, :author, :pub, :sub, :noc)",
+                   bname=request.form.get("book_name"),
+                   author=request.form.get("author"),
+                   pub=request.form.get("publication"),
+                   sub=request.form.get("subject"),
+                   noc=request.form.get("no_of_copies"))
 
         rows = db.execute("SELECT * FROM book_table")
-        return render_template("bookAvailable.html" , books=rows)
+        return render_template("bookAvailable.html", books=rows)
     else:
         rows = db.execute("SELECT * FROM book_table")
         # return str(rows)
-        return render_template("bookAvailable.html" , books=rows)
+        return render_template("bookAvailable.html", books=rows)
 
 
 @app.route("/issues", methods=["GET", "POST"])
@@ -159,13 +158,11 @@ def bookIssues():
             return render_template("apology.html", failMessage="Must Fullfil the form.")
 
         db.execute("INSERT INTO book_issue_table (book_id, member_id, issue_date, return_date) "
-                            "VALUES (:bid, :mid, :idate, :rdate)",
-                    bid=request.form.get("book_id"),
-                    mid=request.form.get("member_id"),
-                    idate=request.form.get("issue_date"),
-                    rdate=request.form.get("return_date"))
-
-
+                   "VALUES (:bid, :mid, :idate, :rdate)",
+                   bid=request.form.get("book_id"),
+                   mid=request.form.get("member_id"),
+                   idate=request.form.get("issue_date"),
+                   rdate=request.form.get("return_date"))
 
         rows = db.execute("""
             SELECT book_issue_table.book_id, book_table.book_name, book_issue_table.member_id, member_table.member_name, issue_date, return_date
@@ -174,9 +171,8 @@ def bookIssues():
             ON book_issue_table.book_id = book_table.book_id
             LEFT JOIN member_table
             ON book_issue_table.member_id = member_table.member_id;
-
         """)
-        return render_template("bookIssued.html" , issues=rows)
+        return render_template("bookIssued.html", issues=rows)
 
     else:
         rows = db.execute("""
@@ -188,5 +184,4 @@ def bookIssues():
             ON book_issue_table.member_id = member_table.member_id;
 
         """)
-        return render_template("bookIssued.html" , issues=rows)
-
+        return render_template("bookIssued.html", issues=rows)

@@ -1,22 +1,23 @@
 
 import random
-import string
 
 pokeList = [
-"Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew",
-"Sandslash", "Nidorina", "Nidoqueen", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales",
-"Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat",
-"Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe",
-"Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp",
-"Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta",
-"Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer",
-"Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler",
-"Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung",
-"Koffing", "Weezing"]
+    "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew",
+    "Sandslash", "Nidorina", "Nidoqueen", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales",
+    "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat",
+    "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe",
+    "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp",
+    "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta",
+    "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer",
+    "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler",
+    "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung",
+    "Koffing", "Weezing"
+]
 
 
 def rw():
-       return random.choice(pokeList)
+    return random.choice(pokeList)
+
 
 def m1():
     for i in range(15):
@@ -29,7 +30,6 @@ def m1():
         print('"', end="")
         print(random.choice(["CSE", "CT", "IT"]), end="")
         print('",', end="")
-
 
         print('"', end="")
         print(random.choice(range(2013, 2019)), end="")
@@ -53,12 +53,10 @@ def m2():
         print(rw(), end="")
         print('"', end="")
 
-
         print(',"', end="")
         print('pub_', end="")
         print(rw(), end="")
         print('"', end="")
-
 
         print(',"', end="")
         print('subject_', end="")
@@ -72,6 +70,7 @@ def m2():
 
         print()
 
+
 def m3():
     for i in range(30):
         print('(', end="")
@@ -82,7 +81,6 @@ def m3():
         print('', end="")
         print(random.randint(47, 76), end="")
         print(',', end="")
-
 
         print('"', end="")
         print(random.randint(0, 27), end="")

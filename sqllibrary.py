@@ -1,11 +1,13 @@
 import sqlalchemy
 
+
 class SQL(object):
     def __init__(self, url):
         try:
             self.engine = sqlalchemy.create_engine(url)
         except Exception as e:
             raise RuntimeError(e)
+
     def execute(self, text, *multiparams, **params):
         try:
             statement = sqlalchemy.text(text).bindparams(*multiparams, **params)
@@ -24,4 +26,3 @@ class SQL(object):
             return None
         except Exception as e:
             raise RuntimeError(e)
-
